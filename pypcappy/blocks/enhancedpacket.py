@@ -14,15 +14,15 @@ class EnhancedPacketBlock(AbstractBlock):
 
     @property
     def capture_len(self):
-        return int.from_bytes(self.data[12:25], byteorder=self.byteorder, signed=False)
+        return int.from_bytes(self.data[12:16], byteorder=self.byteorder, signed=False)
 
     @property
     def original_len(self):
-        return int.from_bytes(self.data[12:25], byteorder=self.byteorder, signed=False)
+        return int.from_bytes(self.data[16:20], byteorder=self.byteorder, signed=False)
 
     @property
     def packet(self):
-        return Packet(self.byteorder, self.data[20:20 + 1 + self.capture_len])
+        return Packet(self.byteorder, self.data[20:20 + self.capture_len])
 
     @property
     def timestamp(self):
